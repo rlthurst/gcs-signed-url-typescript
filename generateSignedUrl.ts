@@ -19,6 +19,7 @@ export default resolver.pipe(
   setGcsStorage,
   async ({ action, httpMethod, destBucketName, destFileName, destFileType, expires=60 }) => {
     /** https://cloud.google.com/storage/docs/access-control/signing-urls-manually */
+    destFileName = encodeURIComponent(destFileName)
     const HOSTNAME = 'https://storage.googleapis.com'
     const PATH_TO_RESOURCE = '/' + destBucketName + "/" + destFileName
     const CREDENTIAL_SCOPE = DateTime.utc().toISODate({format: 'basic'}) + '/auto/storage/goog4_request'
